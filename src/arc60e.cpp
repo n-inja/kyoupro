@@ -48,33 +48,39 @@ int main() {
   }
   vector<vector<long long>> path;
   path.resize(n);
-  for(int i = 0; i < n - 1; i++) {
-    path[i].push_back(x[i + 1] - x[i]);
-  }
-  for(int k = 1; k < n; k *= 2) {
-    for(int i = 0 ; i < n - k*2; i++) {
-      path[i].push_back(path[i][k - 1] + path[i + k][k - 1]);
+  for(int i = 0; i < n; i++) {
+    auto it = upper_bound(x.begin(), x.end(), x[i] + l);
+    if(it - x.begin() == i) {
+      path[i].push_back(i);
+      continue;
     }
+    it--;
+    path[i].push_back(it - x.begin());
+  }
+  int cnt = 0;
+  for(int k = 1; k < n; k *= 2) {
+    for(int i = 0 ; i < n; i++) {
+      path[i].push_back(path[path[i][cnt]][cnt]);
+    }
+    cnt++;
   }
 
   for(int i = 0; i < q; i++) {
-    long long ans = 1, ll = l;
+    long long ans = 0;
     int now = query[i].first;
     while(true) {
-      auto p = upper_bound(path[now].begin(), path[now].end(), ll);
+      if(now >= query[i].second) break;
+      auto p = lower_bound(path[now].begin(), path[now].end(), query[i].second);
       if(p == path[now].begin()) {
-        ll = l;
         ans++;
-        continue;
-      }
-      p--;
-      ll -= *p;
-      now += fastpow(2, p - path[now].begin());
-      if(now >= query[i].second) {
-        cout << ans << endl;
         break;
       }
+      p--;
+      ans += fastpow(2, p - path[now].begin());
+      now = *p;
     }
+    cout << ans << endl;
   }
+
   return 0;
 }
