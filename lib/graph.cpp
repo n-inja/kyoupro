@@ -29,7 +29,6 @@ public:
   void dfs2(int i, int id) {
     if(c[i] > -1) return;
     c[i] = id;
-    l++;
     for(int j = 0; j < inv[i].size(); j++) {
       if(c[inv[i][j]] > -1) continue;
       dfs2(inv[i][j], id);

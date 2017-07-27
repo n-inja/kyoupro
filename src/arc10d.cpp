@@ -16,9 +16,9 @@ using namespace std;
 class G {
 public:
   vector<vector<int>> p, inv, sp, sinv;
-  int n, m, l;
-  vector<int> b, c;
-  vector<int> a;
+  int n, m;
+  vector<int> b, c, depth;
+  vector<bool> a;
   G(int nn, vector<vector<int>> &np, vector<vector<int>> &ninv) {
     n = nn;
     p = np;
@@ -28,7 +28,6 @@ public:
     for(int i = 0; i < n; i++) {
       c[i] = -1;
     }
-    l = 0;
   }
   void dfs(int i) {
     if(a[i]) return;
@@ -44,7 +43,6 @@ public:
   void dfs2(int i, int id) {
     if(c[i] > -1) return;
     c[i] = id;
-    l++;
     for(int j = 0; j < inv[i].size(); j++) {
       if(c[inv[i][j]] > -1) continue;
       dfs2(inv[i][j], id);
@@ -60,25 +58,24 @@ public:
       dfs2(b[i], j++);
     }
     m = j;
-//    sp.resize(m);
+    sp.resize(m);
     sinv.resize(m);
     for(int i = 0; i < n; i++) {
       for(int j = 0; j < p[i].size(); j++) {
         if(c[i] == c[p[i][j]]) continue;
-//        sp[c[i]].push_back(c[p[i][j]]);
+        sp[c[i]].push_back(c[p[i][j]]);
         sinv[c[p[i][j]]].push_back(c[i]);
       }
     }
   }
 };
 
-int n, m;
-vector<bool> b;
-vector<pair<unsigned long long, unsigned long long>> p, e;
-vector<vector<int>> path, inv;
-int ans = 0;
-
 int main() {
+  int n, m;
+  vector<bool> b;
+  vector<pair<unsigned long long, unsigned long long>> p, e;
+  vector<vector<int>> path, inv;
+  int ans = 0;
   cin >> n;
   p.resize(n);
   path.resize(n);
