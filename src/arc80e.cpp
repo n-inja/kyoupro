@@ -13,62 +13,39 @@
 
 using namespace std;
 
-vector<vector<pair<int, int>>> ans;
-
-void solve(auto be, auto en) {
-  if(distance(be, en) == 1) return;
-  vector<pair<int, int>> an;
-  map<int, int> eu, ou;
-  int i = 0;
-  for(auto it = be; it != en; it++) {
-
-    i++;
+Template <typename T>
+class SegTree {
+public:
+  vector<vector<T>> val;
+  auto f;
+  SegTree(vector<T> data, auto lambda) {
+    int j = 0;
+    f = lambda;
+    val.push_back(data);
+    for(int s = ceil((double)data.size() / 2); s > 1; s = ceil((double)s / 2)) {
+      vector<T> v;
+      v.resize(s);
+      for(int i = 0; i < s; i++) {
+        if(i*2 + i < val[j].size()) {
+          v[i] = f(val[j][i*2], val[j][i*2 + 1]);
+        } else {
+          v[i] = val[j][i*2];
+        }
+      }
+      val.push_back(v);
+      j++;
+    }
+    if(data.size() > 1) {
+      vector<T> v;
+      v.push_back(f(val[val.size() - 1][0]), f(val[val.size() - 1][1]));
+      val.push_back(v);
+    }
   }
-}
+  T operator[](int i) {
+    return val[0][i];
+  }
+};
 
 int main() {
-  int n;
-  cin >> n;
-  ans.resize(n/2);
-  vector<int> p, ans;
-  set<int> un, used;
-  p.resize(n);
-  for(int i = 0; i < n; i++) cin >> p[i];
-  for(int i = 0; i < n; i++) p[i]--;
-  for(int i = 0; i < n; i++) {
-    un.insert(i);
-  }
-  map<int, int> mp;
-  for(int i = 0; i < n; i++) mp[p[i]] = i;
-  for(int i = 0; ans.size() < n; i++) {
-    int s, a;
-    for(auto it = un.begin(); it != un.end(); it++) {
-      int ss = *it;
-      auto lb = lower_bound(used.begin(), used.end(), mp[ss]);
-      if((mp[ss] + distance(used.begin(), lb)) % 2 == 0) {
-        s = ss;
-        a = distance(used.begin(), lb);
-        un.erase(it);
-        break;
-      }
-    }
-    int e;
-    for(auto it = un.begin(); it != un.end(); it++) {
-      int ee = *it;
-      auto lb = lower_bound(used.begin(), used.end(), mp[ee]);
-      if((mp[ee] + distance(used.begin(), lb)) % 2 == 1 && a == distance(used.begin(), lb)) {
-        e = ee;
-        un.erase(it);
-        break;
-      }
-    }
-    ans.push_back(s + 1);
-    ans.push_back(e + 1);
-    used.insert(mp[s]);
-    used.insert(mp[e]);
-  }
-  cout << ans[0];
-  for(int i = 1; i < n; i++) cout << " " << ans[i];
-  cout << endl;
   return 0;
 }
