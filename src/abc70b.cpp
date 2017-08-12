@@ -15,5 +15,11 @@
 using namespace std;
 
 int main() {
+  int a, b, c, d;
+  cin >> a >> b >> c >> d;
+  int s = max(a, c);
+  int e = min(b, d);
+  if(e - s > 0) cout << e - s << endl;
+  else cout << 0 << endl;
   return 0;
 }
