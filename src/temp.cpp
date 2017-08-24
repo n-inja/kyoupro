@@ -10,7 +10,7 @@
 #include<set>
 #include<utility>
 
-#define P 1000000007
+const long long PRIME = 1000000007;
 
 using namespace std;
 
