@@ -34,3 +34,7 @@
 # atom-ctags
 *.tags
 .tags1
+
+# mac
+.DS_store
+
