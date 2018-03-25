@@ -34,4 +34,5 @@ public:
       return min(query(a, b, k * 2 + 1, l, (l + r) / 2),
                  query(a, b, k * 2 + 2, (r + l) / 2, r));
   }
+  long long query(int a, int b) { return query(a, b, 0, 0, n); }
 };
