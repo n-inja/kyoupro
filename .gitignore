@@ -38,3 +38,5 @@
 # mac
 .DS_store
 
+marathon/tco/log
+marathon/*/*.jar
