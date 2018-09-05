@@ -34,9 +34,9 @@ int main() {
   }
   for (int i = 1; i < b; i++) {
     if (n > 0) {
-      if (n > b - 1) {
-        v[i] = b;
-        n -= b - 1;
+      if (n > a - 1) {
+        v[i] = a;
+        n -= a - 1;
       } else {
         v[i] += n;
         n = 0;
