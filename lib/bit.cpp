@@ -20,12 +20,15 @@ public:
     n = n_;
     bit.resize(n + 1);
   }
+  // add v[a] + w
   void add(int a, int w) {
+    a++;
     if (a == 0 || a > n)
       return;
     for (int x = a; x <= n; x += x & -x)
       bit[x] += w;
   }
+  // [0, a)
   int sum(int a) {
     if (a == 0)
       return 0;

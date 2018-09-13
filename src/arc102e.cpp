@@ -9,10 +9,9 @@
 #include <string>
 #include <utility>
 #include <vector>
-
 using namespace std;
 
-long long P = 1000000007;
+long long P = 998244353;
 
 class C {
 public:
@@ -57,3 +56,32 @@ public:
   long long mul(long long a, long long b) { return (a * b) % P; }
   long long add(long long a, long long b) { return (a + b) % P; }
 };
+
+int main() {
+  int n, k;
+  cin >> k >> n;
+  C c(50000);
+  long long p2[2020];
+  p2[0] = 1;
+  for (int i = 0; i < 2010; i++)
+    p2[i + 1] = (p2[i] * 2) % P;
+  for (int i = 2; i <= 2 * k; i++) {
+    long long ans = 0;
+    int p = 0;
+    for (int j = 1; j <= k; j++)
+      if (j < i - j && i - j <= k)
+        p++;
+    for (int j = 0; j <= min(n, p); j++) {
+      if (i % 2 == 0) {
+        ans = c.add(ans, c.mul(c.mul(p2[j], c.comb(p, j)),
+                               c.add(c.hcomb(k - 2 * p + j - 1, n - j),
+                                     c.hcomb(k - 2 * p + j - 1, n - j - 1))));
+      } else {
+        ans = c.add(ans, c.mul(c.mul(p2[j], c.comb(p, j)),
+                               c.hcomb(k - 2 * p + j, n - j)));
+      }
+    }
+    cout << ans << endl;
+  }
+  return 0;
+}
