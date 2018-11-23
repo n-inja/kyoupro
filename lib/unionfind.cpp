@@ -1,3 +1,4 @@
+#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -52,3 +53,9 @@ public:
   }
   bool query(int a, int b) { return parent(a) == parent(b); }
 };
+
+int main() {
+  int n;
+  cin >> n;
+  U u(n);
+}
