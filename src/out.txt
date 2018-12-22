@@ -1,7 +1,0 @@
-Active code page: 65001
-jag2014a.cpp.exe
-0
-90
-45
-45/2
-315/4Press any key to continue . . . 
