@@ -40,3 +40,5 @@
 
 marathon/tco/log
 marathon/*/*.jar
+
+out
