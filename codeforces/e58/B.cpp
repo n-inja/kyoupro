@@ -45,7 +45,7 @@ int main() {
       break;
     }
   }
-  if (rc == 0 || rb == 0 || lc == n || lb == n || (rc == lc) || (rb < lb)) {
+  if ((rc <= lc) || (rb < lb)) {
     cout << -1 << endl;
     return 0;
   } else {
