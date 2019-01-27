@@ -66,6 +66,11 @@ int main() {
         }
       }
     }
+    ans = gcd(ans, cnt);
+    if (ans == 1) {
+      cout << 1 << endl;
+      return 0;
+    }
   }
   for (int i = 0; i < n; i++) {
     char c = 0;
@@ -85,6 +90,11 @@ int main() {
 
         cnt = 1;
       }
+    }
+    ans = gcd(ans, cnt);
+    if (ans == 1) {
+      cout << 1 << endl;
+      return 0;
     }
   }
 
