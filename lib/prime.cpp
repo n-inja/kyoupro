@@ -56,4 +56,30 @@ public:
   }
   long long mul(long long a, long long b) { return (a * b) % P; }
   long long add(long long a, long long b) { return (a + b) % P; }
+  // find c
+  // where a^c = b (mod P)
+  long long dlp(long long a, long long b) {
+    long long m = ceil(sqrt(P));
+    map<long long, long long> mp;
+    for (int i = 0; i < m; i++)
+      mp[power(a, i)] = i;
+    long long ainvm = power(power(a, m), P - 2);
+    cout << m << endl;
+    for (int i = 0; i < m; i++) {
+      if (mp.find(b) != mp.end()) {
+        return i * m + mp[b];
+      }
+      b = mul(b, ainvm);
+    }
+    return -1;
+  }
 };
+
+int main() {
+  C cmp(100);
+  long long c = cmp.dlp(100, 192971657);
+  cout << c << endl;
+  cout << cmp.power(100, c) << endl;
+  cout << cmp.power(100, 10000000) << endl;
+  return 0;
+}

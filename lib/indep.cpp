@@ -8,6 +8,12 @@ typedef vector<ll> vll;
 typedef vector<vector<int>> vvi;
 typedef vector<vector<ll>> vvl;
 
+// maximum independent set
+// O(2^n * n) : n <= 20
+// O(2^n/2 * n) : otherwise
+//
+// param v
+// v[i] := NG edge (not contain self)
 struct I {
   int n;
   vll ng;
