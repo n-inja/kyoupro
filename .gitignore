@@ -40,6 +40,8 @@
 
 marathon/tco/log
 marathon/*/*.jar
+marathon/httf3
+marathon/ddcc2019
 
 out
 paizaq
