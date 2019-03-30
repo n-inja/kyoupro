@@ -76,3 +76,14 @@ public:
   }
   T query(int a, int b) { return query(a, b, 0, 0, n); }
 };
+
+tRMQ<ll> minrmq(int n) {
+  return tRMQ<ll>(n, 10000000000000000LL, [](ll r, ll l) { return min(l, r); });
+}
+tRMQ<ll> maxrmq(int n) {
+  return tRMQ<ll>(n, -10000000000000000LL,
+                  [](ll r, ll l) { return max(l, r); });
+}
+tRMQ<ll> sumrmq(int n) {
+  return tRMQ<ll>(n, 0, [](ll l, ll r) { return l + r; })
+}
