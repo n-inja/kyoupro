@@ -9,7 +9,7 @@ typedef vector<vector<int>> vvi;
 typedef vector<vector<ll>> vvl;
 
 int main() {
-  cin.tie(0);
+  cin.tie(nullptr);
   ios::sync_with_stdio(false);
   return 0;
 }
