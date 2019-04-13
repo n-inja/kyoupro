@@ -45,7 +45,7 @@ public:
   static const long long INF = 100000000000;
   int n;
   function<T(const T &, const T &)> f;
-  RMQ(int _, T u, function<T(T, T)> bi) {
+  tRMQ(int _, T u, function<T(T, T)> bi) {
     unit = u;
     f = bi;
     n = 1;
@@ -85,5 +85,5 @@ tRMQ<ll> maxrmq(int n) {
                   [](ll r, ll l) { return max(l, r); });
 }
 tRMQ<ll> sumrmq(int n) {
-  return tRMQ<ll>(n, 0, [](ll l, ll r) { return l + r; })
+  return tRMQ<ll>(n, 0, [](ll l, ll r) { return l + r; });
 }

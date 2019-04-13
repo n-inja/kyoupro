@@ -3,7 +3,7 @@ cd $(dirname $0)
 
 if [[ $# -ne 3 ]]; then
     echo "<usage>: mkc <contest> <name> <problem_num>"
-    echo "<contest> := abc arc agc cf"
+    echo "<contest> := abc arc agc cf other"
     exit 1
 fi
 
@@ -56,3 +56,13 @@ if [[ ${contest} = "cf" ]]; then
     exit 0
 fi
 
+if [[ ${contest} = "other" ]]; then
+    mkdir -p ./src/${name}
+    echo 'set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")' > ./src/${name}/CMakeLists.txt
+    for i in $(seq 1 ${number})
+    do
+        cp ./temp.cpp ./src/${name}/${filenames[$((i - 1))]}.cpp
+        echo 'add_executable(OTHER'${name}${filenames[$((i - 1))]}' '${filenames[$((i - 1))]}.cpp')' >> ./src/${name}/CMakeLists.txt
+    done
+    exit 0
+fi
