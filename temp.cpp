@@ -2,11 +2,11 @@
 
 using namespace std;
 
-typedef long long ll;
-typedef vector<int> vi;
-typedef vector<ll> vll;
-typedef vector<vector<int>> vvi;
-typedef vector<vector<ll>> vvl;
+using ll = long long;
+using vi = vector<int>;
+using vll = vector<ll>;
+using vvi = vector<vector<int>>;
+using vvl = vector<vector<ll>>;
 
 int main() {
   cin.tie(nullptr);
