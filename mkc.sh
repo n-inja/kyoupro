@@ -10,7 +10,7 @@ fi
 contest=$1
 name=$2
 number=$3
-filenames=("A" "B" "C" "D" "E" "F" "G" "H")
+filenames=("A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z")
 
 if [[ ${contest} = "abc" ]]; then
     mkdir -p ./src/abc/${name}

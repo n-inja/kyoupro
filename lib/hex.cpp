@@ -49,6 +49,7 @@ public:
   }
 };
 
+const int BSIZE = 300;
 class Buckets {
 public:
   vector<Bucket> b;
@@ -57,9 +58,9 @@ public:
   int num;
   Buckets(int n) {
     size = n;
-    bsize = (n + 299) / 300;
+    bsize = (n + BSIZE - 1) / BSIZE;
     for (; n > 0; n -= bsize) {
-      Bucket c(bsize);
+      Bucket c(min(n, bsize));
       b.push_back(c);
     }
     num = b.size();
