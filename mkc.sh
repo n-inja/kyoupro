@@ -56,6 +56,17 @@ if [[ ${contest} = "cf" ]]; then
     exit 0
 fi
 
+if [[ ${contest} = "topcoder" ]]; then
+    mkdir -p ./topcoder/${name}
+    echo 'set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")' > ./topcoder/${name}/CMakeLists.txt
+    for i in $(seq 1 ${number})
+    do
+        cp ./temp.cpp ./topcoder/${name}/${filenames[$((i - 1))]}.cpp
+        echo 'add_executable(TC'${name}${filenames[$((i - 1))]}' '${filenames[$((i - 1))]}.cpp')' >> ./topcoder/${name}/CMakeLists.txt
+    done
+    exit 0
+fi
+
 if [[ ${contest} = "other" ]]; then
     mkdir -p ./src/${name}
     echo 'set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")' > ./src/${name}/CMakeLists.txt
