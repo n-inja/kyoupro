@@ -1,6 +1,10 @@
-#include <algorithm>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
+using ll = long long;
+using vi = vector<int>;
+using vll = vector<ll>;
+using vvi = vector<vector<int>>;
+using vvl = vector<vector<ll>>;
 
 class RMQ {
   vector<long long> data;
@@ -42,7 +46,6 @@ template <typename T> class tRMQ {
   T unit;
 
 public:
-  static const long long INF = 100000000000;
   int n;
   function<T(const T &, const T &)> f;
   tRMQ(int _, T u, function<T(T, T)> bi) {
@@ -55,6 +58,23 @@ public:
     data.resize(n * 4);
     for (int i = 0; i < n * 4; i++)
       data[i] = unit;
+  }
+  tRMQ(vector<T> &v, T u, function<T(T, T)> bi) {
+    unit = u;
+    f = bi;
+    n = 1;
+    while (n < v.size())
+      n <<= 1;
+    data.resize(n * 2 + 1);
+    for (int i = 0; i < n + 1; i++) {
+      if (i < v.size())
+        data[i + n] = v[i];
+      else
+        data[i + n] = u;
+    }
+    for (int i = n - 1; i >= 0; i--) {
+      data[i] = f(data[i * 2 + 1], data[i * 2 + 2]);
+    }
   }
   void update(int index, T val) {
     int i = index + n - 1;
@@ -86,4 +106,24 @@ tRMQ<ll> maxrmq(int n) {
 }
 tRMQ<ll> sumrmq(int n) {
   return tRMQ<ll>(n, 0, [](ll l, ll r) { return l + r; });
+}
+
+int main() {
+  int n, q;
+  cin >> n >> q;
+  vector<ll> v(n);
+  for (int i = 0; i < n; i++)
+    v[i] = (1LL << 31) - 1LL;
+  tRMQ<ll> rmq(v, (1LL << 31) - 1LL, [](ll l, ll r) { return min(l, r); });
+  int c, l, r;
+  for (int i = 0; i < q; i++) {
+    cin >> c >> l >> r;
+    if (c) {
+      cout << rmq.query(l, r + 1) << endl;
+    } else {
+      rmq.update(l, r);
+    }
+  }
+
+  return 0;
 }
