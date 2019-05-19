@@ -3,7 +3,7 @@ cd $(dirname $0)
 
 if [[ $# -ne 3 ]]; then
     echo "<usage>: mkc <contest> <name> <problem_num>"
-    echo "<contest> := abc arc agc cf other"
+    echo "<contest> := abc arc agc cf topcoder other"
     exit 1
 fi
 
