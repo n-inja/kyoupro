@@ -150,7 +150,7 @@ public:
 
 };
 
-std::ostream &operator<<(std::ostream &stream, const mint<P> &m) {
+std::ostream &operator<<(ostream &stream, const mint<P> &m) {
   return stream << m.v();
 }
 
@@ -198,5 +198,6 @@ int main() {
   mint<P> a(10), b(100), d(100);
   cout << d / a << endl;
   cout << tot(1000000007) << endl;
+
   return 0;
 }

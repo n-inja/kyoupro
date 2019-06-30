@@ -1,5 +1,4 @@
 
-
 class Increase {
 public:
   int n, flowMax = 1000000;

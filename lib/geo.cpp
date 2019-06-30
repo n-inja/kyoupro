@@ -16,27 +16,61 @@ using p2 = complex<double>;
 double det(p2 v1, p2 v2) {
   return v1.real() * v2.imag() - v1.imag() * v2.real();
 }
+
 double dot(p2 v1, p2 v2) {
   return v1.real() * v2.real() + v1.imag() * v2.imag();
 }
+
+double dist2(p2 v) {
+  return dot(v, v);
+}
+
+double dist(p2 v) {
+  return sqrt(dist2(v));
+}
+
 bool same(double x, double y) { return fabs(x - y) < eps; }
+
 double dist2(p2 l1, p2 l2) { return dot(l1 - l2, l1 - l2); }
+
+double dist(p2 l1, p2 l2) {
+  return sqrt(dist2(l1, l2));
+}
+
+int ccw(p2 a, p2 b, p2 c) {
+  b -= a;
+  c -= a;
+  if (det(b, c) > eps)return 1;
+  if (det(b, c) < -eps) return -1;
+  if (dot(b, c) < -eps) return 2;
+  if (dist2(b) < dist2(c)) return -2;
+  return 0;
+}
 
 auto p2comp = [](const p2 &l, const p2 &r) {
   if (fabs(l.real() - r.real()) > eps)
     return l.real() < r.real();
   return l.imag() < r.imag();
 };
+
 struct Line {
   p2 st, ed;
+
   Line(p2 st, p2 ed) : st(st), ed(ed) {}
+
   Line(double x1, double y1, double x2, double y2)
       : st(p2(x1, y1)), ed(p2(x2, y2)) {}
+
   Line(p2 st, double x, double y) : st(st), ed(p2(x, y)) {}
+
   Line(double x, double y, p2 ed) : st(p2(x, y)), ed(ed) {}
+
   double dist() { return sqrt(dist2(st, ed)); }
+
   bool isPalla(Line l) { return fabs(det(ed - st, l.ed - l.st)) < eps; }
+
   double x() { return ed.real() - st.real(); }
+
   double y() { return ed.imag() - st.imag(); }
 };
 
@@ -64,21 +98,32 @@ bool intersec(Line l1, Line l2) {
 
 struct Poly {
   vector<p2> ps;
-  Poly(vector<p2> ps) : ps(ps) {}
-  bool include(p2 p) {
-    vector<double> b;
-    for (int i = 0; i < ps.size(); i++) {
-      b.push_back(det(p, ps[i] - ps[(i + 1) % ps.size()]));
-    }
-    bool allPlus = true, allMinus = true;
-    for (auto &x : b) {
-      if (x > eps)
-        allMinus = false;
-      if (x < -eps)
-        allPlus = false;
-    }
-    return allMinus || allPlus;
+  double d;
+
+  Poly(vector<p2> ps) : ps(ps) {
+    d = 0;
+    for (int i = 0; i < ps.size(); i++) d += dist(ps[i], ps[(i + 1) % ps.size()]);
   }
+
+  // 頂点上/辺上は微妙
+  bool include(p2 p) {
+    // 半直線
+    Line l(p, p2(-10000, -1));
+    int c = 0;
+    for (int i = 0; i < ps.size(); i++) {
+      if (intersec(l, Line(ps[i], ps[(i + 1) % ps.size()]))) c++;
+    }
+    return c % 2 == 1;
+  }
+
+  bool include(p2 p, bool on_vert, bool on_edge) {
+    for (auto &q : ps) if (dist(p, q) < eps) return on_vert;
+    for (int i = 0; i < ps.size(); i++) {
+      if (ccw(ps[i], ps[(i + 1) % ps.size()], p) == 0) return on_edge;
+    }
+    return include(p);
+  }
+
   bool intersecl(Line l) {
     for (int i = 0; i < ps.size(); i++) {
       if (intersec(l, Line(ps[i], ps[(i + 1) % ps.size()])))
@@ -91,7 +136,9 @@ struct Poly {
 struct Circle {
   p2 p;
   double r;
+
   Circle(p2 p, double r) : p(p), r(r) {}
+
   bool include(p2 l) { return dist2(p, l) < r * r + eps; }
 
   // 円同士の交点
@@ -113,9 +160,10 @@ struct Circle {
   }
 };
 
-// 逆時計回り
+// 半時計回り
 struct ConX {
   vector<p2> ps;
+
   // graham scan
   // ref: プログラミングコンテストチャレンジブック p233
   ConX(vector<p2> v) {
@@ -135,6 +183,11 @@ struct ConX {
     }
     ps.resize(k - 1);
   }
+
+  Poly toPoly() {
+    return Poly(ps);
+  }
+
   size_t size() { return ps.size(); }
 };
 
@@ -179,6 +232,12 @@ bool f(double l) {
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
+  Poly p(vector<p2>({p2(0, 0), p2(1, 0.5), p2(2, 0), p2(2, 2), p2(1, 1.5), p2(0, 2)}));
+  vector<double> xy({-1, 0, 1, 2, 3});
+  for (auto &x : xy)
+    for (auto &y : xy) {
+      cerr << x << " " << y << " " << (p.include(p2(x, y), true, true) ? "YES" : "NO") << endl;
+    }
 
   return 0;
 }

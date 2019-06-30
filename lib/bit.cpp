@@ -16,10 +16,12 @@ class BIT {
 public:
   int n;
   vector<int> bit;
+
   BIT(int n_) {
     n = n_;
     bit.resize(n + 1);
   }
+
   // add v[a] + w
   void add(int a, int w) {
     a++;
@@ -28,6 +30,7 @@ public:
     for (int x = a; x <= n; x += x & -x)
       bit[x] += w;
   }
+
   // [0, a)
   int sum(int a) {
     if (a == 0)

@@ -17,10 +17,12 @@ typedef vector<vector<ll>> vvl;
 struct I {
   int n;
   vll ng;
+
   I(vll &v) {
     n = v.size();
     ng = v;
   }
+
   int solve() {
     if (n <= 20) {
       int size = 1 << n;

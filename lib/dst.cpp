@@ -1,12 +1,15 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
-template <typename T> class DST {
+template<typename T>
+class DST {
 public:
   int n;
   function<T(T, T)> f;
   vector<T> v;
   vector<pair<vector<T>, vector<T>>> table[32];
+
   DST(vector<T> &_v, function<T(T, T)> f) : v(_v), f(f) {
     n = 1;
     while (n < v.size()) {
@@ -31,6 +34,7 @@ public:
       }
     }
   }
+
   T query(int l, int r) {
     if (r - l <= 1)
       return v[l];

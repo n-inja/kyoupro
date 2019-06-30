@@ -9,10 +9,12 @@
 #include <string>
 #include <utility>
 #include <vector>
+
 using namespace std;
 
 struct Z {
   long long val;
+
   void f(Z a) { val += a.val; }
 };
 

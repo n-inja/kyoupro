@@ -5,12 +5,14 @@ public:
   vector<long long> v;
   long long addSum;
   long long stageNum;
+
   Bucket(int n) {
     size = n;
     v.resize(n);
     addSum = 0;
     stageNum = 0;
   }
+
   // add a [l, r)
   void add(int l, int r, long long a) {
     if (l <= 0 && r >= size) {
@@ -20,6 +22,7 @@ public:
         v[i] += a;
     }
   }
+
   // add [l, r)
   int addStage(int l, int r, long long a) {
     if (l <= 0 && r >= size) {
@@ -34,6 +37,7 @@ public:
       return c;
     }
   }
+
   long long get(int i) {
     if (stageNum > 0) {
       for (int i = 0; i < size; i++)
@@ -50,12 +54,14 @@ public:
 };
 
 const int BSIZE = 300;
+
 class Buckets {
 public:
-  vector<Bucket> b;
+  vector <Bucket> b;
   int size;
   int bsize;
   int num;
+
   Buckets(int n) {
     size = n;
     bsize = (n + BSIZE - 1) / BSIZE;
@@ -65,10 +71,12 @@ public:
     }
     num = b.size();
   }
+
   void add(int l, int r, long long a) {
     for (int i = 0; i < num; i++)
       b[i].add(l - bsize * i, r - bsize * i, a);
   }
+
   int addStage(int l, int r) {
     int c = 0;
     for (int i = 0; i < num; i++) {
@@ -76,5 +84,6 @@ public:
     }
     return c;
   }
+
   long long get(int i) { return b[i / bsize].get(i - (i / bsize) * bsize); }
 };

@@ -1,11 +1,12 @@
 
 class G {
 public:
-  vector<vector<int>> p, inv, sp, sinv;
+  vector <vector<int>> p, inv, sp, sinv;
   int n, m;
   vector<int> b, c, depth;
   vector<bool> a;
-  G(int nn, vector<vector<int>> &np, vector<vector<int>> &ninv) {
+
+  G(int nn, vector <vector<int>> &np, vector <vector<int>> &ninv) {
     n = nn;
     p = np;
     inv = ninv;
@@ -15,6 +16,7 @@ public:
       c[i] = -1;
     }
   }
+
   void dfs(int i) {
     if (a[i])
       return;
@@ -27,6 +29,7 @@ public:
     }
     b.push_back(i);
   }
+
   void dfs2(int i, int id) {
     if (c[i] > -1)
       return;
@@ -37,6 +40,7 @@ public:
       dfs2(inv[i][j], id);
     }
   }
+
   void solve() {
     for (int i = 0; i < n; i++) {
       dfs(i);
