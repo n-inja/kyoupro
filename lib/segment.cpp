@@ -73,8 +73,8 @@ public:
     n = 1;
     while (n < v.size())
       n <<= 1;
-    data.resize(n * 2 + 1);
-    for (int i = 0; i < n + 1; i++) {
+    data.resize(n * 4);
+    for (int i = 0; i < 3 * n; i++) {
       if (i < v.size())
         data[i + n] = v[i];
       else
