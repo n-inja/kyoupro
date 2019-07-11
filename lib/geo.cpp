@@ -9,6 +9,8 @@ using vvi = vector<vector<int>>;
 using vvl = vector<vector<ll>>;
 
 double eps = 0.0000001;
+// asin(1.) * 2
+double pi = 3.14159265358979323846264338327950288;
 using p2 = complex<double>;
 // x: real
 // y: imag
@@ -29,7 +31,7 @@ double dist(p2 v) {
   return sqrt(dist2(v));
 }
 
-bool same(double x, double y) { return fabs(x - y) < eps; }
+bool same(double x, double y) { return abs(x - y) < eps; }
 
 double dist2(p2 l1, p2 l2) { return dot(l1 - l2, l1 - l2); }
 
@@ -48,7 +50,7 @@ int ccw(p2 a, p2 b, p2 c) {
 }
 
 auto p2comp = [](const p2 &l, const p2 &r) {
-  if (fabs(l.real() - r.real()) > eps)
+  if (abs(l.real() - r.real()) > eps)
     return l.real() < r.real();
   return l.imag() < r.imag();
 };
@@ -67,11 +69,13 @@ struct Line {
 
   double dist() { return sqrt(dist2(st, ed)); }
 
-  bool isPalla(Line l) { return fabs(det(ed - st, l.ed - l.st)) < eps; }
+  bool isPalla(Line l) { return abs(det(ed - st, l.ed - l.st)) < eps; }
 
   double x() { return ed.real() - st.real(); }
 
   double y() { return ed.imag() - st.imag(); }
+
+  p2 v() { return ed - st; }
 };
 
 // l1.st + (l1.st - l1.ed) * r.first = l2.st + (l2.st - l2.ed) * r.second
@@ -94,6 +98,29 @@ bool intersec(Line l1, Line l2) {
   auto r = interP(l1, l2);
   return eps < r.first && r.first < 1. - eps && eps < r.second &&
          r.second < 1. - eps;
+}
+
+double inter_r(Line l, p2 c) {
+  p2 a = l.st, b = l.ed;
+  return dot(a - c, l.v()) / dist2(l.v());
+}
+
+double dist(Line l, p2 c) {
+  double r = inter_r(l, c);
+  if (r < -eps) return dist(l.st, c);
+  if (1. + eps < r) return dist(l.ed, c);
+  return dist(l.st + l.v() * r, c);
+}
+
+p2 nearest(Line l, p2 c) {
+  double r = inter_r(l, c);
+  if (r < -eps) return l.st;
+  if (1. + eps < r) return l.ed;
+  return l.st + l.v() * r;
+}
+
+double dist(Line l1, Line l2) {
+  return min(min(dist(l1, l2.st), dist(l1, l2.ed)), min(dist(l2, l1.st), dist(l2, l1.ed)));
 }
 
 struct Poly {
@@ -230,6 +257,7 @@ bool f(double l) {
 }
 
 int main() {
+  printf("%.20lf\n", asin(1.) * 2);
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
   Poly p(vector<p2>({p2(0, 0), p2(1, 0.5), p2(2, 0), p2(2, 2), p2(1, 1.5), p2(0, 2)}));
