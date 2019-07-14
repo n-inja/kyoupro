@@ -1,3 +1,4 @@
+// 幾何ライブラリ 2次元ベクトル内積/外積 線分距離 直線交点 凸包 円
 #include <bits/stdc++.h>
 
 using namespace std;
