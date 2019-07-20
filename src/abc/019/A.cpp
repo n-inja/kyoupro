@@ -11,8 +11,9 @@ using vvl = vector<vector<ll>>;
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-  double n;
-  cin >> n;
-  printf("%.9lf\n", (n + 1) * 10000 / 2.);
+  vector<int> v(3);
+  for (int i = 0; i < 3; i++) cin >> v[i];
+  sort(v.begin(), v.end());
+  cout << v[1] << endl;
   return 0;
 }

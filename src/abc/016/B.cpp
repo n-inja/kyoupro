@@ -11,8 +11,17 @@ using vvl = vector<vector<ll>>;
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-  double n;
-  cin >> n;
-  printf("%.9lf\n", (n + 1) * 10000 / 2.);
+  int a, b, c;
+  cin >> a >> b >> c;
+  int d = a + b, e = a - b;
+  if (c == d && c == e) {
+    cout << "?" << endl;
+  } else if (c == d) {
+    cout << "+" << endl;
+  } else if (c == e) {
+    cout << "-" << endl;
+  } else {
+    cout << "!" << endl;
+  }
   return 0;
 }

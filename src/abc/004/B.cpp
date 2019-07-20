@@ -11,8 +11,11 @@ using vvl = vector<vector<ll>>;
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-  double n;
-  cin >> n;
-  printf("%.9lf\n", (n + 1) * 10000 / 2.);
+  vector<string> mp(4);
+  for (int i = 0; i < 4; i++) getline(cin, mp[i]);
+  for (int i = 3; i >= 0; i--) {
+    reverse(mp[i].begin(), mp[i].end());
+    cout << mp[i] << endl;
+  }
   return 0;
 }

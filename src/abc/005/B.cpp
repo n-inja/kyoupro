@@ -11,8 +11,10 @@ using vvl = vector<vector<ll>>;
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-  double n;
+  int n;
   cin >> n;
-  printf("%.9lf\n", (n + 1) * 10000 / 2.);
+  vector<int> v(n);
+  for (int i = 0; i < n; i++) cin >> v[i];
+  cout << *min_element(v.begin(), v.end()) << endl;
   return 0;
 }

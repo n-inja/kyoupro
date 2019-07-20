@@ -11,8 +11,9 @@ using vvl = vector<vector<ll>>;
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-  double n;
-  cin >> n;
-  printf("%.9lf\n", (n + 1) * 10000 / 2.);
+  string s;
+  cin >> s;
+  for (auto &c : s) if (c != 'a' && c != 'i' && c != 'u' && c != 'e' && c != 'o') cout << c;
+  cout << endl;
   return 0;
 }

@@ -11,8 +11,10 @@ using vvl = vector<vector<ll>>;
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-  double n;
+  int n;
   cin >> n;
-  printf("%.9lf\n", (n + 1) * 10000 / 2.);
+  int ans = 0;
+  for (int i = 0; i <= n; i++) ans = max(ans, i * (n - i));
+  cout << ans << endl;
   return 0;
 }
