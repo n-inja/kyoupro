@@ -11,16 +11,8 @@ using vvl = vector<vector<ll>>;
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-  string s, t;
-  cin >> s >> t;
-  int n = s.size() + t.size();
-  string ans(n, 'a');
-  for (int i = 0; i < s.size(); i++) {
-    ans[i * 2] = s[i];
-  }
-  for (int i = 0; i < t.size(); i++) {
-    ans[i * 2 + 1] = t[i];
-  }
-  cout << ans << endl;
+  ll a, b, c, d;
+  cin >> a >> b >> c >> d;
+  cout << max(a * b, c * d) << endl;
   return 0;
 }

@@ -11,16 +11,18 @@ using vvl = vector<vector<ll>>;
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-  string s, t;
-  cin >> s >> t;
-  int n = s.size() + t.size();
-  string ans(n, 'a');
-  for (int i = 0; i < s.size(); i++) {
-    ans[i * 2] = s[i];
+  map<char, int> mp;
+  string s;
+  cin >> s;
+  for (char &c : s) {
+    mp[c]++;
   }
-  for (int i = 0; i < t.size(); i++) {
-    ans[i * 2 + 1] = t[i];
+  for (char c = 'a'; c <= 'z'; c++) {
+    if (mp[c] % 2 == 1) {
+      cout << "No" << endl;
+      return 0;
+    }
   }
-  cout << ans << endl;
+  cout << "Yes" << endl;
   return 0;
 }

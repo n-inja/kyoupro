@@ -8,29 +8,22 @@ using vll = vector<ll>;
 using vvi = vector<vector<int>>;
 using vvl = vector<vector<ll>>;
 
-ll x;
-
-bool f(ll m) {
-  ll y = x;
-  for (int i = m; i > 0; i--) {
-    if ((y -= i) <= 0) return true;
-  }
-  return false;
-}
-
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-  ll l = 0, r = 1000000;
-  cin >> x;
-  while (r - l > 1) {
-    ll m = (l + r) / 2;
-    if (f(m)) {
-      r = m;
+  int n, s, t;
+  cin >> s >> t >> n;
+
+  for (int i = 0; i < n; i++) {
+    int a;
+    cin >> a;
+    if (a < s) {
+      cout << s - a << endl;
+    } else if (a <= t) {
+      cout << 0 << endl;
     } else {
-      l = m;
+      cout << -1 << endl;
     }
   }
-  cout << r << endl;
   return 0;
 }

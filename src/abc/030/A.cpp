@@ -11,16 +11,14 @@ using vvl = vector<vector<ll>>;
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-  string s, t;
-  cin >> s >> t;
-  int n = s.size() + t.size();
-  string ans(n, 'a');
-  for (int i = 0; i < s.size(); i++) {
-    ans[i * 2] = s[i];
+  int a, b, c, d;
+  cin >> b >> a >> d >> c;
+  if (a * d == c * b) {
+    cout << "DRAW" << endl;
+  } else if (a * d < c * b) {
+    cout << "AOKI" << endl;
+  } else {
+    cout << "TAKAHASHI" << endl;
   }
-  for (int i = 0; i < t.size(); i++) {
-    ans[i * 2 + 1] = t[i];
-  }
-  cout << ans << endl;
   return 0;
 }

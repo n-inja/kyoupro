@@ -11,9 +11,9 @@ using vvl = vector<vector<ll>>;
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-  char c1, c2;
-  cin >> c1 >> c2;
-  if (c1 == c2) cout << "H" << endl;
-  else cout << "D" << endl;
+  int a, b, c;
+  cin >> a >> b >> c;
+  if (b - a == c - b) cout << "YES" << endl;
+  else cout << "NO" << endl;
   return 0;
 }

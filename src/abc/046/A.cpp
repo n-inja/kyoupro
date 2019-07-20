@@ -11,16 +11,12 @@ using vvl = vector<vector<ll>>;
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
-  string s, t;
-  cin >> s >> t;
-  int n = s.size() + t.size();
-  string ans(n, 'a');
-  for (int i = 0; i < s.size(); i++) {
-    ans[i * 2] = s[i];
-  }
-  for (int i = 0; i < t.size(); i++) {
-    ans[i * 2 + 1] = t[i];
-  }
-  cout << ans << endl;
+  int a, b, c;
+  cin >> a >> b >> c;
+  set<int> s;
+  s.insert(a);
+  s.insert(b);
+  s.insert(c);
+  cout << s.size() << endl;
   return 0;
 }
