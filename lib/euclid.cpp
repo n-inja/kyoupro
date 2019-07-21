@@ -163,7 +163,7 @@ typedef NTT<469762049, 3> NTT_2;
 typedef NTT<1224736769, 3> NTT_3;
 NTT_1 ntt1;
 NTT_2 ntt2;
-NTT_2 ntt3;
+NTT_3 ntt3;
 // ref: https://math314.hateblo.jp/entry/2015/05/07/014908
 
 // NTT
