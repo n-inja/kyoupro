@@ -103,7 +103,7 @@ bool intersec(Line l1, Line l2) {
 
 double inter_r(Line l, p2 c) {
   p2 a = l.st, b = l.ed;
-  return dot(a - c, l.v()) / dist2(l.v());
+  return dot(c - a, l.v()) / dist2(l.v());
 }
 
 double dist(Line l, p2 c) {
