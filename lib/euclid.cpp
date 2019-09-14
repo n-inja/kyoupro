@@ -137,6 +137,67 @@ public:
     intt(_a);
     return _a;
   }
+
+
+  vector<vector<ll>> trans(vector<vector<ll>> a) {
+    int n = a.size();
+    int m = a[0].size();
+    vector<vector<ll>> ret(m, vector<ll>(n, 0));
+    for (int i = 0; i < n; i++)
+      for (int j = 0; j < m; j++)
+        ret[j][i] = a[i][j];
+    return ret;
+  }
+
+  vector<vector<ll>> convolution2d(vector<vector<ll>> a, vector<vector<ll>> b) {
+    int ntt_size_n = 1;
+    int ntt_size_m = 1;
+    while (ntt_size_n < a.size() + b.size())
+      ntt_size_n *= 2;
+    while (ntt_size_m < a[0].size() + b[0].size())
+      ntt_size_m *= 2;
+    vector<vector<ll>> ac, bc, acc, bcc;
+    for (auto &v : a) {
+      v.resize(ntt_size_m);
+      ntt(v);
+      ac.push_back(v);
+    }
+    for (auto &v : b) {
+      v.resize(ntt_size_m);
+      ntt(v);
+      bc.push_back(v);
+    }
+    ac = trans(ac);
+    bc = trans(bc);
+    for (auto &v : ac) {
+      v.resize(ntt_size_n);
+      ntt(v);
+      acc.push_back(v);
+    }
+    for (auto &v : bc) {
+      v.resize(ntt_size_n);
+      ntt(v);
+      bcc.push_back(v);
+    }
+    acc = trans(acc);
+    bcc = trans(bcc);
+    for (int i = 0; i < ntt_size_n; i++)
+      for (int j = 0; j < ntt_size_m; j++)
+        (acc[i][j] *= bcc[i][j]) %= mod;
+    ac.clear();
+    for (auto &v : acc) {
+      intt(v);
+      ac.push_back(v);
+    }
+    ac = trans(ac);
+    acc.clear();
+    for (auto &v : ac) {
+      intt(v);
+      acc.push_back(v);
+    }
+    acc = trans(acc);
+    return acc;
+  }
 };
 
 ll garner(vector<pair<ll, ll>> mr, int mod) {
@@ -187,6 +248,34 @@ vector<ll> mod_conv(vector<ll> a, vector<ll> b, ll P) {
   }
   return ret;
 }
+
+vector<vector<ll>> mod_mat_conv(vector<vector<ll>> a, vector<vector<ll>> b,
+                                ll P) {
+  for (auto &v : a)
+    for (auto &i : v)
+      i %= P;
+  for (auto &v : b)
+    for (auto &i : v)
+      i %= P;
+
+  auto m1 = ntt1.convolution2d(a, b);
+  auto m2 = ntt2.convolution2d(a, b);
+  auto m3 = ntt3.convolution2d(a, b);
+  int n = m1.size();
+  int m = m1[0].size();
+  vector<vector<ll>> ret(n, vector<ll>(m));
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < m; j++) {
+      ret[i][j] =
+          garner(vector<pair<ll, ll>>({make_pair(ntt1.get_mod(), m1[i][j]),
+                                       make_pair(ntt2.get_mod(), m2[i][j]),
+                                       make_pair(ntt3.get_mod(), m3[i][j])}),
+                 P);
+    }
+  }
+  return ret;
+}
+
 
 int main() {
   int n;
