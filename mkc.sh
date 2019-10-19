@@ -14,7 +14,7 @@ filenames=("A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "
 
 if [[ ${contest} = "abc" ]]; then
     mkdir -p ./src/abc/${name}
-    echo 'set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")' > ./src/abc/${name}/CMakeLists.txt
+    echo 'set(CMAKE_CXX_COMPILER "/usr/local/bin/g++" CACHE string "g++ compiler" FORCE)\nset(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")' > ./src/abc/${name}/CMakeLists.txt
     for i in $(seq 1 ${number})
     do
         cp ./temp.cpp ./src/abc/${name}/${filenames[$((i - 1))]}.cpp
@@ -25,7 +25,7 @@ fi
 
 if [[ ${contest} = "arc" ]]; then
     mkdir -p ./src/arc/${name}
-    echo 'set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")' > ./src/arc/${name}/CMakeLists.txt
+    echo 'set(CMAKE_CXX_COMPILER "/usr/local/bin/g++" CACHE string "g++ compiler" FORCE)\nset(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")' > ./src/arc/${name}/CMakeLists.txt
     for i in $(seq 1 ${number})
     do
         cp ./temp.cpp ./src/arc/${name}/${filenames[$((i - 1))]}.cpp
@@ -36,7 +36,7 @@ fi
 
 if [[ ${contest} = "agc" ]]; then
     mkdir -p ./src/agc/${name}
-    echo 'set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")' > ./src/agc/${name}/CMakeLists.txt
+    echo 'set(CMAKE_CXX_COMPILER "/usr/local/bin/g++" CACHE string "g++ compiler" FORCE)\nset(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")' > ./src/agc/${name}/CMakeLists.txt
     for i in $(seq 1 ${number})
     do
         cp ./temp.cpp ./src/agc/${name}/${filenames[$((i - 1))]}.cpp
@@ -47,7 +47,7 @@ fi
 
 if [[ ${contest} = "cf" ]]; then
     mkdir -p ./codeforces/${name}
-    echo 'set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")' > ./codeforces/${name}/CMakeLists.txt
+    echo 'set(CMAKE_CXX_COMPILER "/usr/local/bin/g++" CACHE string "g++ compiler" FORCE)\nset(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")' > ./codeforces/${name}/CMakeLists.txt
     for i in $(seq 1 ${number})
     do
         cp ./temp.cpp ./codeforces/${name}/${filenames[$((i - 1))]}.cpp
@@ -58,7 +58,7 @@ fi
 
 if [[ ${contest} = "topcoder" ]]; then
     mkdir -p ./topcoder/${name}
-    echo 'set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")' > ./topcoder/${name}/CMakeLists.txt
+    echo 'set(CMAKE_CXX_COMPILER "/usr/local/bin/g++" CACHE string "g++ compiler" FORCE)\nset(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")' > ./topcoder/${name}/CMakeLists.txt
     for i in $(seq 1 ${number})
     do
         cp ./temp.cpp ./topcoder/${name}/${filenames[$((i - 1))]}.cpp
@@ -69,7 +69,7 @@ fi
 
 if [[ ${contest} = "other" ]]; then
     mkdir -p ./src/${name}
-    echo 'set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")' > ./src/${name}/CMakeLists.txt
+    echo 'set(CMAKE_CXX_COMPILER "/usr/local/bin/g++" CACHE string "g++ compiler" FORCE)\nset(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")' > ./src/${name}/CMakeLists.txt
     for i in $(seq 1 ${number})
     do
         cp ./temp.cpp ./src/${name}/${filenames[$((i - 1))]}.cpp
